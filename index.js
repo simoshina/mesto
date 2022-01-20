@@ -2,7 +2,7 @@ const likeButton = document.querySelectorAll('.element__like-button');
 
 likeButton.forEach(function(likeButton) {
   likeButton.addEventListener('click', function() {
-    likeButton.style.backgroundImage = 'url(../../../images/likeOn.svg)';
+    likeButton.classList.add('element__like-button_active');
   });
 });
 
