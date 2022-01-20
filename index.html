@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pages/index.css">
+    <title>Место</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <img class="header__logo" alt="лого" src="images/logo.svg">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <img class="profile__avatar" alt="аватар" src="images/кусто.jpg">
+        <div class="profile__info">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button class="profile__edit-button"></button>
+          <p class="profile__subtitle">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button"></button>
+      </section>
+      <section class="elements">
+        <div class="element">
+          <img alt="Алтай" src="images/алтай.jpg" class="element__photo">
+          <div class="element__caption">
+            <h2 class="element__title">Алтай</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img alt="Маяк Анива" src="images/анива.jpg" class="element__photo">
+          <div class="element__caption">
+            <h2 class="element__title">Сахалин</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img alt="Камчатка" src="images/камчатка.jpg" class="element__photo">
+          <div class="element__caption">
+            <h2 class="element__title">Камчатка</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img alt="Карелия" src="images/карелия.jpg" class="element__photo">
+          <div class="element__caption">
+            <h2 class="element__title">Карелия</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img alt="Куршская коса" src="images/коса.jpg" class="element__photo">
+          <div class="element__caption">
+            <h2 class="element__title">Калининград</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img alt="Ямал" src="images/ямал.jpg" class="element__photo">
+          <div class="element__caption">
+            <h2 class="element__title">Ямал</h2>
+            <button class="element__like-button"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+    </footer>
+    <div class="popup">
+      <div class="popup__container">
+        <form class="popup__form">
+          <button class="popup__exit-button"></button>
+          <h2 class="popup__heading">Редактировать профиль</h2>
+          <input type="text" name="name" class="popup__edit-form" placeholder="Имя" value="Жак-Ив Кусто" autocomplete="off">
+          <input type="text" name="about" class="popup__edit-form" placeholder="О себе" value="Исследователь океана" autocomplete="off">
+          <button type="submit" class="popup__save-button">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
