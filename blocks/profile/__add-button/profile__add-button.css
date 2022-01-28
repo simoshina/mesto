@@ -9,11 +9,13 @@
   height: 50px;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  cursor: pointer;
+  transition: .5s;
+  border-radius: 2px;
 }
 
 .profile__add-button:hover {
   opacity: .6;
-  transition: .5s;
 }
 
 @media screen and (max-width: 767px) {

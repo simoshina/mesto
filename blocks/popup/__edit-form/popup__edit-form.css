@@ -5,12 +5,9 @@
   font-size: 14px;
   line-height: 17px;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, .15);
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
 .popup__edit-form:focus {
-  border-bottom: 1px solid rgba(250, 3, 3, 0.384);
-  box-shadow: 0 2px 0 rgba(250, 3, 3, 0.384);
   outline: none;
-  transition: border-bottom .3s linear;
 }

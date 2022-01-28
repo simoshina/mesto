@@ -2,15 +2,13 @@
   background-image: url(../../../images/like.svg);
   background-position: center;
   background-repeat: no-repeat;
-  margin-right: 20px;
-  padding: 0;
+  padding: 10px 11px;
   border: none;
-  width: 22px;
-  height: 19px;
   background-color: white;
+  transition: .5s;
+  cursor: pointer;
 }
 
 .element__like-button:hover {
   opacity: .5;
-  transition: .5s;
 }

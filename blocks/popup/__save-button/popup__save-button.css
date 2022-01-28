@@ -8,11 +8,13 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  cursor: pointer;
+  transition: .5s;
+  border-radius: 2px;
 }
 
 .popup__save-button:hover {
   opacity: .8;
-  transition: .5s;
 }
 
 @media screen and (max-width: 470px) {
