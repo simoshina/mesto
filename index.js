@@ -16,20 +16,25 @@ let aboutInput = formElement.querySelector('input[name="about"]');
 let profileTitle = document.querySelector('.profile__title');
 let profileSubtitle = document.querySelector('.profile__subtitle');
 
-function popupForm (evt) {
+function popupFormOpen (evt) {
   evt.preventDefault();
-  popup.classList.toggle('popup_opened');
+  popup.classList.add('popup_opened');
   nameInput.value = profileTitle.textContent;
   aboutInput.value = profileSubtitle.textContent;
+};
+
+function popupFormClose (evt) {
+  evt.preventDefault();
+  popup.classList.remove('popup_opened');
 };
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = aboutInput.value;
-  popupForm (evt);
+  popupFormClose (evt);
 };
 
-popupOpenButton.addEventListener('click', popupForm);
-popupCloseButton.addEventListener('click', popupForm);
+popupOpenButton.addEventListener('click', popupFormOpen);
+popupCloseButton.addEventListener('click', popupFormClose);
 formElement.addEventListener('submit', formSubmitHandler); 
