@@ -5,8 +5,8 @@
   background-color: transparent;
   border: none;
   position: absolute;
-  top: -12%;
-  right: -9%;
+  top: -40px;
+  right: -40px;
   padding: 0;
   width: 32px;
   height: 32px;
@@ -23,7 +23,7 @@
   .popup__exit-button {
     width: 20px;
     height: 20px;
-    top: -12%;
+    top: -10%;
     right: 0;
   }
 }

@@ -21,57 +21,16 @@
         <button type="button" aria-label="Добавить" class="profile__add-button"></button>
       </section>
       <section class="elements">
-        <article class="element">
-          <img alt="Алтай" src="images/алтай.jpg" class="element__photo">
-          <div class="element__caption">
-            <h2 class="element__title">Алтай</h2>
-            <button type="button" aria-label="Нравится" class="element__like-button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img alt="Маяк Анива" src="images/анива.jpg" class="element__photo">
-          <div class="element__caption">
-            <h2 class="element__title">Сахалин</h2>
-            <button type="button" aria-label="Нравится" class="element__like-button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img alt="Камчатка" src="images/камчатка.jpg" class="element__photo">
-          <div class="element__caption">
-            <h2 class="element__title">Камчатка</h2>
-            <button type="button" aria-label="Нравится" class="element__like-button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img alt="Карелия" src="images/карелия.jpg" class="element__photo">
-          <div class="element__caption">
-            <h2 class="element__title">Карелия</h2>
-            <button type="button" aria-label="Нравится" class="element__like-button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img alt="Куршская коса" src="images/коса.jpg" class="element__photo">
-          <div class="element__caption">
-            <h2 class="element__title">Калининград</h2>
-            <button type="button" aria-label="Нравится" class="element__like-button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img alt="Ямал" src="images/ямал.jpg" class="element__photo">
-          <div class="element__caption">
-            <h2 class="element__title">Ямал</h2>
-            <button type="button" aria-label="Нравится" class="element__like-button"></button>
-          </div>
-        </article>
+        
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div id="infoPopup" class="popup">
       <div class="popup__container">
-        <form name="editForm" class="popup__form">
-          <button type="button" aria-label="Закрыть" class="popup__exit-button"></button>
+        <form id="editInfo" name="editInfo" class="popup__form">
+          <button id="editFormClose" type="button" aria-label="Закрыть" class="popup__exit-button"></button>
           <h2 class="popup__heading">Редактировать профиль</h2>
           <input type="text" name="name" class="popup__edit-form" placeholder="Имя" value="Жак-Ив Кусто" autocomplete="off">
           <input type="text" name="about" class="popup__edit-form" placeholder="О себе" value="Исследователь океана" autocomplete="off">
@@ -79,6 +38,36 @@
         </form>
       </div>
     </div>
+    <div id="cardPopup" class="popup">
+      <div class="popup__container">
+        <form id="addCard" name="addCard" class="popup__form">
+          <button id="addFormClose" type="button" aria-label="Закрыть" class="popup__exit-button"></button>
+          <h2 class="popup__heading">Новое место</h2>
+          <input type="text" name="caption" class="popup__edit-form" placeholder="Название" value="" autocomplete="off">
+          <input type="text" name="link" class="popup__edit-form" placeholder="Ссылка на картинку" value="" autocomplete="off">
+          <button aria-label="Создать" type="submit" class="popup__save-button">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div id="photoView" class="popup">
+      <div class="popup__container">
+        <div class="popup__image-view">
+          <img class="popup__image" src="" alt="">
+          <p class="popup__caption"></p>
+          <button id="photoViewClose" type="button" aria-label="Закрыть" class="popup__exit-button"></button>
+        </div>
+      </div>
+    </div>
+    <template id="card">
+      <article class="element">
+        <img alt="" src="" class="element__photo">
+        <button type="button" aria-label="Удалить" class="element__delete-button"></button>
+        <div class="element__caption">
+          <h2 class="element__title"></h2>
+          <button type="button" aria-label="Нравится" class="element__like-button"></button>
+        </div>
+      </article>
+    </template>
     <script src="index.js"></script>
   </body>
 </html>
