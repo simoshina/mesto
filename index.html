@@ -43,8 +43,8 @@
         <form id="addCard" name="addCard" class="popup__form">
           <button id="addFormClose" type="button" aria-label="Закрыть" class="popup__exit-button"></button>
           <h2 class="popup__heading">Новое место</h2>
-          <input type="text" name="caption" class="popup__edit-form" placeholder="Название" value="" autocomplete="off">
-          <input type="text" name="link" class="popup__edit-form" placeholder="Ссылка на картинку" value="" autocomplete="off">
+          <input type="text" name="caption" class="popup__edit-form" placeholder="Название" autocomplete="off">
+          <input type="text" name="link" class="popup__edit-form" placeholder="Ссылка на картинку" autocomplete="off">
           <button aria-label="Создать" type="submit" class="popup__save-button">Создать</button>
         </form>
       </div>
@@ -52,7 +52,7 @@
     <div id="photoView" class="popup">
       <div class="popup__container">
         <div class="popup__image-view">
-          <img class="popup__image" src="" alt="">
+          <img class="popup__image">
           <p class="popup__caption"></p>
           <button id="photoViewClose" type="button" aria-label="Закрыть" class="popup__exit-button"></button>
         </div>
@@ -60,7 +60,7 @@
     </div>
     <template id="card">
       <article class="element">
-        <img alt="" src="" class="element__photo">
+        <img class="element__photo">
         <button type="button" aria-label="Удалить" class="element__delete-button"></button>
         <div class="element__caption">
           <h2 class="element__title"></h2>
