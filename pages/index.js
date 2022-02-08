@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    caption: 'Алтай',
-    link: 'images/алтай.jpg'
-  },
-  {
-    caption: 'Маяк Анива',
-    link: 'images/анива.jpg'
-  },
-  {
-    caption: 'Камчатка',
-    link: 'images/камчатка.jpg'
-  },
-  {
-    caption: 'Карелия',
-    link: 'images/карелия.jpg'
-  },
-  {
-    caption: 'Куршская коса',
-    link: 'images/коса.jpg'
-  },
-  {
-    caption: 'Ямал',
-    link: 'images/ямал.jpg'
-  }
-]; 
-
 const elements = document.querySelector('.elements');
 const template = document.querySelector('#card').content;
 const addForm = document.getElementById('addCard');
@@ -48,24 +21,33 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
 
+
 function render () {
-  initialCards.forEach(renderElement);
+  initialCards.forEach(function(el){
+    const newCard = createCard(el.caption, el.link);
+    renderElement(newCard, elements);
+  });
 };
 
-function renderElement({caption, link}) {
+function renderElement (card, container) {
+  container.prepend(card);
+};
+
+function createCard(caption, link) {
   const element = template.cloneNode(true);
-  element.querySelector('.element__photo').alt = caption;
+  const photo = element.querySelector('.element__photo');
+  photo.alt = caption;
+  photo.src = link;
   element.querySelector('.element__title').textContent = caption;
-  element.querySelector('.element__photo').src = link;
   addListeners (element);
-  elements.prepend(element);
+  return element;
 };
 
 function submitCard (evt) {
   evt.preventDefault();
-  let caption = captionInput.value;
-  let link = linkInput.value;
-  renderElement({caption, link});
+  const caption = captionInput.value;
+  const link = linkInput.value;
+  renderElement(createCard(caption, link), elements);
   captionInput.value = '';
   linkInput.value = '';
   closeAddForm (evt);
@@ -82,46 +64,59 @@ function clickLikeButton (evt) {
 };
 
 function deleteCard (evt) {
-  evt.target.parentElement.remove();
+  evt.target.closest('.element').remove();
 };
 
-function openEditForm (evt) {
+function openPopup (popup) {
+  popup.classList.add('popup_opened');
+};
+
+function closePopup (popup) {
+  popup.classList.remove('popup_opened');
+};
+
+function openPage (evt) {
   evt.preventDefault();
-  infoPopup.classList.add('popup_opened');
+}
+
+function openEditForm (evt) {
+  openPage (evt);
+  openPopup (infoPopup);
   nameInput.value = profileTitle.textContent;
   aboutInput.value = profileSubtitle.textContent;
 };
 
-function openAddForm (evt) {
-  evt.preventDefault();
-  cardPopup.classList.add('popup_opened');
-};
+function openAddForm (evt) { 
+  openPage (evt);
+  openPopup (cardPopup);
+}; 
 
 function openPhotoView (evt) {
-  evt.preventDefault();
-  photoView.classList.add('popup_opened');
-  photoView.querySelector('.popup__image').src = evt.target.src;
-  photoView.querySelector('.popup__image').alt = evt.target.alt;
+  openPage (evt);
+  openPopup (photoView);
+  const image = photoView.querySelector('.popup__image');
+  image.src = evt.target.src;
+  image.alt = evt.target.alt;
   photoView.querySelector('.popup__caption').textContent = evt.target.alt;
-}
+};
 
 function closeEditForm (evt) {
-  evt.preventDefault();
-  infoPopup.classList.remove('popup_opened');
+  openPage (evt);
+  closePopup (infoPopup);
 };
 
 function closeAddForm (evt) {
-  evt.preventDefault();
-  cardPopup.classList.remove('popup_opened');
+  openPage (evt);
+  closePopup (cardPopup);
 };
 
 function closePhotoView (evt) {
-  evt.preventDefault();
-  photoView.classList.remove('popup_opened');
+  openPage (evt);
+  closePopup (photoView);
 }
 
-function formSubmitHandler (evt) {
-  evt.preventDefault();
+function submitProfileChanges (evt) {
+  openPage (evt);
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = aboutInput.value;
   closeEditForm (evt);
@@ -134,7 +129,7 @@ editFormCloseButton.addEventListener('click', closeEditForm);
 addFormCloseButton.addEventListener('click', closeAddForm);
 photoViewCloseButton.addEventListener('click', closePhotoView);
 
-editInfo.addEventListener('submit', formSubmitHandler);
+editInfo.addEventListener('submit', submitProfileChanges);
 addForm.addEventListener('submit', submitCard);
 
 render ();
