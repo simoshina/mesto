@@ -23,7 +23,7 @@
   .popup__exit-button {
     width: 20px;
     height: 20px;
-    top: -10%;
+    top: -30px;
     right: 0;
   }
 }

@@ -21,7 +21,6 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
 
-
 function render () {
   initialCards.forEach(function(el){
     const newCard = createCard(el.caption, el.link);
@@ -48,8 +47,6 @@ function submitCard (evt) {
   const caption = captionInput.value;
   const link = linkInput.value;
   renderElement(createCard(caption, link), elements);
-  captionInput.value = '';
-  linkInput.value = '';
   closeAddForm (evt);
 };
 
@@ -69,30 +66,41 @@ function deleteCard (evt) {
 
 function openPopup (popup) {
   popup.classList.add('popup_opened');
+  popup.addEventListener('mousedown', closeByOverlayClick);
+  document.addEventListener('keydown', closePopupByEsc);
 };
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
 };
 
-function openPage (evt) {
-  evt.preventDefault();
+const closePopupByEsc = (evt) => {
+  const popup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup (popup);
+  }
+}
+
+function closeByOverlayClick (evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup (evt.target);
+  } 
 }
 
 function openEditForm (evt) {
-  openPage (evt);
   openPopup (infoPopup);
   nameInput.value = profileTitle.textContent;
   aboutInput.value = profileSubtitle.textContent;
 };
 
-function openAddForm (evt) { 
-  openPage (evt);
+function openAddForm (evt) {
+  addForm.reset();
+  enableValidation(validateList);
   openPopup (cardPopup);
 }; 
 
 function openPhotoView (evt) {
-  openPage (evt);
   openPopup (photoView);
   const image = photoView.querySelector('.popup__image');
   image.src = evt.target.src;
@@ -101,22 +109,19 @@ function openPhotoView (evt) {
 };
 
 function closeEditForm (evt) {
-  openPage (evt);
   closePopup (infoPopup);
 };
 
 function closeAddForm (evt) {
-  openPage (evt);
   closePopup (cardPopup);
 };
 
 function closePhotoView (evt) {
-  openPage (evt);
   closePopup (photoView);
 }
 
 function submitProfileChanges (evt) {
-  openPage (evt);
+  evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = aboutInput.value;
   closeEditForm (evt);
