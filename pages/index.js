@@ -21,10 +21,19 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const editFormCloseButton = document.querySelector('#editFormClose');
 
+import { FormValidator, validateList } from './FormValidator.js';
+
+const editInfoValidator = new FormValidator(validateList, editInfo);
+const addFormValidator = new FormValidator(validateList, addForm);
+
+editInfoValidator.enableValidation();
+addFormValidator.enableValidation();
+
+import { initialCards, Card} from './Card.js';
 
 function render () {
-  initialCards.forEach(function(el){
-    const newCard = createCard(el.caption, el.link);
+  initialCards.forEach((card) => {
+    const newCard = createNewCard(card); 
     renderElement(newCard, elements);
   });
 };
@@ -33,39 +42,23 @@ function renderElement (card, container) {
   container.prepend(card);
 };
 
-function createCard(caption, link) {
-  const element = template.cloneNode(true);
-  const photo = element.querySelector('.element__photo');
-  photo.alt = caption;
-  photo.src = link;
-  element.querySelector('.element__title').textContent = caption;
-  addListeners (element);
-  return element;
-};
+function createNewCard (item) {
+  const card = new Card (item, template, openPhotoView);
+  const cardElement = card.createCard();
+  return cardElement;
+}
 
 function submitCard (evt) {
   evt.preventDefault();
-  const caption = captionInput.value;
-  const link = linkInput.value;
-  renderElement(createCard(caption, link), elements);
+  const newCard = {
+    caption: captionInput.value,
+    link: linkInput.value
+  };
+  renderElement(createNewCard(newCard), elements);
   closeAddForm (evt);
   const button = cardPopup.querySelector('.popup__save-button');
   button.setAttribute('disabled', true);
   button.classList.add('popup__save-button_disabled');
-};
-
-function addListeners (el) {
-  el.querySelector('.element__delete-button').addEventListener('click', deleteCard);
-  el.querySelector('.element__like-button').addEventListener('click', clickLikeButton);
-  el.querySelector('.element__photo').addEventListener('click', openPhotoView);
-};
-
-function clickLikeButton (evt) {
-  evt.target.classList.toggle('element__like-button_active');
-};
-
-function deleteCard (evt) {
-  evt.target.closest('.element').remove();
 };
 
 function openPopup (popup) {
@@ -93,13 +86,13 @@ function closeByOverlayClick (evt) {
   } 
 }
 
-function openEditForm (evt) {
+function openEditForm () {
   openPopup (infoPopup);
   nameInput.value = profileTitle.textContent;
   aboutInput.value = profileSubtitle.textContent;
 };
 
-function openAddForm (evt) {
+function openAddForm () {
   addForm.reset();
   openPopup (cardPopup);
 }; 
@@ -111,15 +104,15 @@ function openPhotoView (evt) {
   photoView.querySelector('.popup__caption').textContent = evt.target.alt;
 };
 
-function closeEditForm (evt) {
+function closeEditForm () {
   closePopup (infoPopup);
 };
 
-function closeAddForm (evt) {
+function closeAddForm () {
   closePopup (cardPopup);
 };
 
-function closePhotoView (evt) {
+function closePhotoView () {
   closePopup (photoView);
 }
 
