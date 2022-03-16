@@ -1,12 +1,3 @@
-export const validateList = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
-
 export class FormValidator {
   constructor(config, form) {
     this._form = form;
@@ -41,7 +32,7 @@ export class FormValidator {
     }
   }
   
-  _checkButtonValidity () {
+  checkButtonValidity () {
     const { inactiveButtonClass } = this._config;
     if (!this._hasInvalidInput()) {
       this._button.classList.remove(inactiveButtonClass);
@@ -55,12 +46,12 @@ export class FormValidator {
   _setEventListeners() {
     this._inputs = Array.from(this._form.querySelectorAll(this._config.inputSelector));
     this._button = this._form.querySelector(this._config.submitButtonSelector);
-    this._checkButtonValidity();
+    this.checkButtonValidity();
 
     this._inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkInputValidity(input);
-        this._checkButtonValidity();
+        this.checkButtonValidity();
       })
     })
   }

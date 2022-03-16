@@ -1,40 +1,47 @@
-const elements = document.querySelector('.elements');
-const template = document.querySelector('#card').content;
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
+import { FormValidator } from './FormValidator.js';
+import { initialCards, Card} from './Card.js';
+
+const cardsContainer = document.querySelector('.elements');
+const buttonEditInfo = document.querySelector('.profile__edit-button');
+const buttonAddCard = document.querySelector('.profile__add-button');
 
 const cardPopup = document.querySelector('#cardPopup');
-const addForm = document.querySelector('#addCard');
-const captionInput = addForm.querySelector('input[name="caption"]');
-const linkInput = addForm.querySelector('input[name="link"]');
-const addFormCloseButton = addForm.querySelector('#addFormClose');
+const formAddCard = document.querySelector('#addCard');
+const captionInput = formAddCard.querySelector('input[name="caption"]');
+const linkInput = formAddCard.querySelector('input[name="link"]');
+const buttonCloseAddForm = formAddCard.querySelector('#addFormClose');
 
 const photoView = document.querySelector('#photoView');
 const image = photoView.querySelector('.popup__image');
-const photoViewCloseButton = document.querySelector('#photoViewClose');
+const buttonClosePhotoView = document.querySelector('#photoViewClose');
 
 const infoPopup = document.querySelector('#infoPopup');
-const editInfo = document.querySelector('#editInfo');
-const nameInput = editInfo.querySelector('input[name="name"]');
-const aboutInput = editInfo.querySelector('input[name="about"]');
+const formEditInfo = document.querySelector('#editInfo');
+const nameInput = formEditInfo.querySelector('input[name="name"]');
+const aboutInput = formEditInfo.querySelector('input[name="about"]');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
-const editFormCloseButton = document.querySelector('#editFormClose');
+const buttonCloseEditForm = document.querySelector('#editFormClose');
 
-import { FormValidator, validateList } from './FormValidator.js';
+const validateList = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
 
-const editInfoValidator = new FormValidator(validateList, editInfo);
-const addFormValidator = new FormValidator(validateList, addForm);
+const editInfoValidator = new FormValidator(validateList, formEditInfo);
+const addFormValidator = new FormValidator(validateList, formAddCard);
 
 editInfoValidator.enableValidation();
 addFormValidator.enableValidation();
 
-import { initialCards, Card} from './Card.js';
-
 function render () {
   initialCards.forEach((card) => {
     const newCard = createNewCard(card); 
-    renderElement(newCard, elements);
+    renderElement(newCard, cardsContainer);
   });
 };
 
@@ -43,7 +50,7 @@ function renderElement (card, container) {
 };
 
 function createNewCard (item) {
-  const card = new Card (item, template, openPhotoView);
+  const card = new Card (item, '#template', openPhotoView);
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -54,11 +61,8 @@ function submitCard (evt) {
     caption: captionInput.value,
     link: linkInput.value
   };
-  renderElement(createNewCard(newCard), elements);
+  renderElement(createNewCard(newCard), cardsContainer);
   closeAddForm (evt);
-  const button = cardPopup.querySelector('.popup__save-button');
-  button.setAttribute('disabled', true);
-  button.classList.add('popup__save-button_disabled');
 };
 
 function openPopup (popup) {
@@ -88,13 +92,15 @@ function closeByOverlayClick (evt) {
 
 function openEditForm () {
   openPopup (infoPopup);
+  editInfoValidator.checkButtonValidity();
   nameInput.value = profileTitle.textContent;
   aboutInput.value = profileSubtitle.textContent;
 };
 
 function openAddForm () {
-  addForm.reset();
+  formAddCard.reset();
   openPopup (cardPopup);
+  addFormValidator.checkButtonValidity();
 }; 
 
 function openPhotoView (evt) {
@@ -123,14 +129,14 @@ function submitProfileChanges (evt) {
   closeEditForm (evt);
 };
 
-editButton.addEventListener('click', openEditForm);
-addButton.addEventListener('click', openAddForm);
+buttonEditInfo.addEventListener('click', openEditForm);
+buttonAddCard.addEventListener('click', openAddForm);
 
-editFormCloseButton.addEventListener('click', closeEditForm);
-addFormCloseButton.addEventListener('click', closeAddForm);
-photoViewCloseButton.addEventListener('click', closePhotoView);
+buttonCloseEditForm.addEventListener('click', closeEditForm);
+buttonCloseAddForm.addEventListener('click', closeAddForm);
+buttonClosePhotoView.addEventListener('click', closePhotoView);
 
-editInfo.addEventListener('submit', submitProfileChanges);
-addForm.addEventListener('submit', submitCard);
+formEditInfo.addEventListener('submit', submitProfileChanges);
+formAddCard.addEventListener('submit', submitCard);
 
 render ();
