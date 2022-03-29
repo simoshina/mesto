@@ -1,35 +1,42 @@
+import altai from '../images/алтай.jpg';
+import aniva from '../images/анива.jpg';
+import kamchatka from '../images/камчатка.jpg';
+import karelia from '../images/карелия.jpg';
+import kosa from '../images/коса.jpg';
+import yamal from '../images/ямал.jpg';
+
 export const initialCards = [
   {
     caption: 'Алтай',
-    link: 'images/алтай.jpg'
+    link: altai
   },
   {
     caption: 'Маяк Анива',
-    link: 'images/анива.jpg'
+    link: aniva
   },
   {
     caption: 'Камчатка',
-    link: 'images/камчатка.jpg'
+    link: kamchatka
   },
   {
     caption: 'Карелия',
-    link: 'images/карелия.jpg'
+    link: karelia
   },
   {
     caption: 'Куршская коса',
-    link: 'images/коса.jpg'
+    link: kosa
   },
   {
     caption: 'Ямал',
-    link: 'images/ямал.jpg'
+    link: yamal
   }
 ]; 
 
 export class Card {
-  constructor(data, template, openPhotoView) {
+  constructor(data, template, handleCardClick) {
     this._data = data;
     this._template = document.querySelector(template).content.querySelector('.element');
-    this._openPhotoView = openPhotoView;
+    this._handleCardClick = handleCardClick;
   }
 
   _clickLikeButton = () => {
@@ -44,7 +51,7 @@ export class Card {
   _addListeners () {
     this._buttonDelete.addEventListener('click', this._deleteCard);
     this._buttonLike.addEventListener('click', this._clickLikeButton);
-    this._photo.addEventListener('click', this._openPhotoView);
+    this._photo.addEventListener('click', this._handleCardClick);
   };
 
   createCard() {
