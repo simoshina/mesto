@@ -13,3 +13,37 @@ export const validateList = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 }
+
+import altai from '../images/алтай.jpg';
+import aniva from '../images/анива.jpg';
+import kamchatka from '../images/камчатка.jpg';
+import karelia from '../images/карелия.jpg';
+import kosa from '../images/коса.jpg';
+import yamal from '../images/ямал.jpg';
+
+export const initialCards = [
+  {
+    caption: 'Алтай',
+    link: altai
+  },
+  {
+    caption: 'Маяк Анива',
+    link: aniva
+  },
+  {
+    caption: 'Камчатка',
+    link: kamchatka
+  },
+  {
+    caption: 'Карелия',
+    link: karelia
+  },
+  {
+    caption: 'Куршская коса',
+    link: kosa
+  },
+  {
+    caption: 'Ямал',
+    link: yamal
+  }
+]; 

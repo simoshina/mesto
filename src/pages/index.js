@@ -1,41 +1,41 @@
 import '../pages/index.css';
 
-import { buttonEditInfo, buttonAddCard, formAddCard, formEditInfo, nameInput, aboutInput, validateList } from '../components/constants.js';
+import { buttonEditInfo, buttonAddCard, formAddCard, formEditInfo, nameInput, aboutInput, validateList, initialCards } from '../components/constants.js';
 import { FormValidator } from '../components/FormValidator.js';
-import { initialCards, Card} from '../components/Card.js';
+import { Card} from '../components/Card.js';
 import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 
 
-const editInfoValidator = new FormValidator(validateList, formEditInfo);
-const addFormValidator = new FormValidator(validateList, formAddCard);
+const profileValidator = new FormValidator(validateList, formEditInfo);
+const cardValidator = new FormValidator(validateList, formAddCard);
 
-const section = new Section({ items: initialCards, renderer: render }, '.elements');
+const section = new Section({ renderer: render }, '.elements');
 
 const imagePopup = new PopupWithImage('#photoView');
-const addCardPopup = new PopupWithForm('#cardPopup', submitCard);
-const editInfoPopup = new PopupWithForm('#infoPopup', submitProfileChanges);
+const cardPopup = new PopupWithForm('#cardPopup', submitCard);
+const profilePopup = new PopupWithForm('#infoPopup', submitProfileChanges);
 
 const userInfo = new UserInfo({
   usernameSelector: '.profile__title', 
   aboutSelector: '.profile__subtitle'})
 
-editInfoValidator.enableValidation();
-addFormValidator.enableValidation();
+profileValidator.enableValidation();
+cardValidator.enableValidation();
 
 function openEditForm () {
   const data = userInfo.getUserInfo();
   nameInput.value = data.name;
   aboutInput.value = data.about;
-  editInfoValidator.checkButtonValidity();
-  editInfoPopup.open()
+  profileValidator.checkButtonValidity();
+  profilePopup.open()
 };
 
 function openAddForm () {
-  addFormValidator.checkButtonValidity();
-  addCardPopup.open()
+  cardValidator.checkButtonValidity();
+  cardPopup.open()
 }; 
 
 buttonEditInfo.addEventListener('click', openEditForm);
@@ -43,13 +43,13 @@ buttonAddCard.addEventListener('click', openAddForm);
 
 function submitProfileChanges (data) {
   userInfo.setUserInfo(data);
-  editInfoPopup.close()
+  profilePopup.close()
 };
 
 function submitCard (item) {
   const newCard = createNewCard(item);
   section.addItem(newCard);
-  addCardPopup.close()
+  cardPopup.close()
 };
 
 function createNewCard (item) {
@@ -66,8 +66,8 @@ function render (card) {
 };
 
 imagePopup.setEventListeners();
-addCardPopup.setEventListeners();
-editInfoPopup.setEventListeners();
+cardPopup.setEventListeners();
+profilePopup.setEventListeners();
 
-section.renderItems()
+section.renderItems(initialCards)
 
