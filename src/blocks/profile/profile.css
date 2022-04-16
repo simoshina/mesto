@@ -3,6 +3,7 @@
   display: grid;
   align-items: center;
   grid-template-columns: 150px auto 150px;
+  position: relative;
 }
 
 @media screen and (max-width: 767px) {
