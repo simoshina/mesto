@@ -12,19 +12,18 @@ import { api } from '../components/Api';
 
 let userId
 
-api.getProfile()
-  .then(data => {
+Promise.all([api.getProfile(), api.getInitialCards()])
+  .then(([data, cardList]) => {
     userInfo.setUserInfo(data);
     userPic.setUserPic(data);
     userId = data._id
-  });
-
-api.getInitialCards()
-  .then(cardList => {
     cardList.forEach(data => {
       const newCard = createNewCard(data);
       section.addItem(newCard);
     })
+  })
+  .catch((err) => {
+    console.log(err);
   })
 
 const profileValidator = new FormValidator(validateList, formEditInfo);
@@ -87,12 +86,15 @@ function submitProfileChanges (data) {
   profilePopup.loading(true)
   api.editProfile(data.name, data.about)
     .then(res => {
-      userInfo.setUserInfo(res)
+      userInfo.setUserInfo(res);
+      profilePopup.close()
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => {
       profilePopup.loading(false)
     })
-  profilePopup.close()
 };
 
 function submitCard (data) {
@@ -101,24 +103,29 @@ function submitCard (data) {
     .then(res => {
       const newCard = createNewCard(res);
       section.addItem(newCard);
+      cardPopup.close()
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => {
       cardPopup.loading(false)
     })
-  cardPopup.close()
 };
 
 function submitProfilePic (data) {
   profilePicPopup.loading(true)
   api.editUserPic(data.avatar)
     .then(res => {
-      console.log(res)
-      userPic.setUserPic(res)
+      userPic.setUserPic(res);
+      profilePicPopup.close()
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => {
       profilePicPopup.loading(false)
     })
-  profilePicPopup.close()
 } 
 
 /* рендер карточки */
@@ -136,6 +143,9 @@ function createNewCard (data) {
         card.deleteCard()
         approvePopup.close()
       })
+      .catch((err) => {
+        console.log(err);
+      })
     })    
   },
   (id) => {
@@ -144,11 +154,17 @@ function createNewCard (data) {
       .then(data => {
         card.setLikes(data.likes)
       })
+      .catch((err) => {
+        console.log(err);
+      })
     } else {
       api.putLike(id)
       .then(data => {
         card.setLikes(data.likes)
         console.log(data.likes)
+      })
+      .catch((err) => {
+        console.log(err);
       })
     } 
   });
